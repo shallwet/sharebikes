@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // 数据库名称
-    private static final String DATABASE_NAME = "MyDatabase1.db";
+    private static final String DATABASE_NAME = "MyDatabase.db";
 
     // 数据库版本号
     private static final int DATABASE_VERSION = 1;
@@ -68,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("updatedate", updatedate);
         long result = db.insert(TABLE_NAME, null, values);
         db.close();
+        Log.d("DatabaseHelper", "添加用户成功");
         return result != -1; // 返回true表示添加成功，false表示失败
     }
     // 更新用户
@@ -97,6 +98,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] columns = {COLUMN_ID};
         String selection = COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
         String[] selectionArgs = {username, password};
+        String groupBy = null;
+        String having = null;
+        String orderBy = null;
+        String limit = "1";
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, groupBy, having, orderBy, limit);
+        boolean result = cursor.getCount() > 0;
+        cursor.close();
+        db.close();
+        return result;
+    }
+
+    // 查询用户
+    public boolean checkLogin(String phonenumber, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ID};
+        String selection = "phonenumber = ? AND password = ?";
+        String[] selectionArgs = {phonenumber, password};
         String groupBy = null;
         String having = null;
         String orderBy = null;

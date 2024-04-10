@@ -1,5 +1,6 @@
 package com.example.sharebikes.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -52,14 +53,35 @@ public class RegisterActivity extends BaseActivity {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (!isValidPhoneNumber(phonenumber)) {
+            Toast.makeText(RegisterActivity.this, "无效的手机号格式", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        boolean result = dbHelper.addUser(username, password, phonenumber, "N/A", 0.0, currentDate, currentDate);
+        if (!isValidPassword(password)) {
+            Toast.makeText(RegisterActivity.this, "密码格式不正确", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean result = dbHelper.addUser(username, password, phonenumber, "男", 0.0, currentDate, currentDate);
 
         if(result) {
             Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
             finish(); // Close the activity after successful registration
         } else {
             Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        // 简单的验证中国大陆的手机号格式
+        return phoneNumber.matches("^1[3-9]\\d{9}$");
+    }
+
+    private boolean isValidPassword(String password) {
+        // 密码长度至少为8，包含字母和数字
+        return password.matches("^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$");
     }
 }

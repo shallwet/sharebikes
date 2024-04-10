@@ -61,22 +61,39 @@ public class LoginActivity extends BaseActivity {
         String phone = etPhone.getText().toString().trim();
         String password = etPsw.getText().toString().trim();
 
-        // 这里简化了登录验证逻辑，实际项目中应查询数据库验证用户凭据
-        if (phone.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "手机号或密码不能为空", Toast.LENGTH_SHORT).show();
+        if (!isValidPhoneNumber(phone)) {
+            Toast.makeText(LoginActivity.this, "无效的手机号格式", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // 模拟一个简单的登录验证过程
-        if ("demo".equals(phone) && "password".equals(password)) {
+        if (!isValidPassword(password)) {
+            Toast.makeText(LoginActivity.this, "密码格式不正确", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (dbHelper.checkLogin(phone, password)) {
             // 登录成功
-            Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-            finish(); // 结束当前活动
+            finish();
         } else {
             // 登录失败
-            Toast.makeText(this, "登录失败：用户名或密码错误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "手机号或密码错误", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        // 简单的验证中国大陆的手机号格式
+        return phoneNumber.matches("^1[3-9]\\d{9}$");
+    }
+
+    private boolean isValidPassword(String password) {
+        // 密码长度至少为8，包含字母和数字
+        return password.matches("^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$");
+    }
+
+
+
+
 }
