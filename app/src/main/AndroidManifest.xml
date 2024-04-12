@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- 高德地图需要的权限 -->
+    <!-- 访问网络，进行地图相关业务数据请求，包括地图数据，路线规划，POI检索等 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取网络状态，根据网络状态切换进行数据请求网络转换 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 读取外置存储。如果开发者使用了so动态加载功能并且把so文件放在了外置存储区域，则需要申请该权限，否则不需要 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 写外置存储。如果开发者使用了离线地图，并且数据写在外置存储区域，则需要申请该权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
 
     <application
         android:allowBackup="true"
@@ -10,23 +26,25 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.Sharebikes"
         tools:targetApi="31">
 
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="key"> <!-- 高德地图的 key -->
-
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="	30b8c048237380e6fbbba2da128f622f">
         </meta-data>
+<!--        <service android:name="com.amap.api.location.APSService" />-->
 
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true"> <!-- 设置 MainActivity 为主页面 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- 将 WelcomeActivity 中的 intent-filter 删除 -->
+        </activity> <!-- 将 WelcomeActivity 中的 intent-filter 删除 -->
         <activity
             android:name=".Activity.RegisterActivity"
             android:exported="false" />
@@ -38,29 +56,4 @@
             android:exported="false" />
     </application>
 
-
-    <!--允许程序打开网络套接字-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--允许程序设置内置sd卡的写权限-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--允许程序获取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--允许程序访问WiFi网络信息-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!--允许获取设备和运营商信息，用于问题排查和网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--允许获取wifi状态改变，用于网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
-    <!--允许写设备缓存，用于问题排查-->
-    <uses-permission android:name="android.permission.WRITE_SETTINGSS" />
-
-    <!--允许读设备等信息，用于问题排查-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
-    <meta-data android:name="com.amap.api.v2.apikey" android:value="30b8c048237380e6fbbba2da128f622f">
-    </meta-data>
 </manifest>

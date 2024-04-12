@@ -43,8 +43,6 @@ dependencies {
 
 
 //    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //3D地图so及jar
-    implementation 'com.amap.api:map2d:latest.integration'
-    implementation 'com.amap.api:search:9.7.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 }

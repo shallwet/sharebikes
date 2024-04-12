@@ -7,36 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity">
 
-    <!--主页面布局-->
-    <LinearLayout
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent"/>
 
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/menu" />
-
-        <!--地图视图-->
-        <com.amap.api.maps2d.MapView
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-
-    <!--滑动导航视图-->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"
-        />
 
 </androidx.drawerlayout.widget.DrawerLayout>
