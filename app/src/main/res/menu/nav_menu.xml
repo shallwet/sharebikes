@@ -2,6 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/item_user"
+            android:icon="@drawable/icon_user"
+            android:title="个人中心" />
+        <item
+            android:id="@+id/item_navigation"
+            android:icon="@drawable/icon_nav"
+            android:title="导航" />
+        <item
             android:id="@+id/item_order"
             android:icon="@drawable/icon_order"
             android:title="订单" />

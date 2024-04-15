@@ -7,12 +7,55 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity">
 
-
-    <com.amap.api.maps.MapView
-        android:id="@+id/map"
+    <!--主页面布局-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true">
 
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/blue"
+            app:navigationIcon="@drawable/menu" >
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="共享单车"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
+
+            <ImageButton
+                android:id="@+id/scan_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="15dp"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/icon_scan"
+                android:contentDescription="@string/scan"/>
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <!--滑动导航视图-->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu"
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>
