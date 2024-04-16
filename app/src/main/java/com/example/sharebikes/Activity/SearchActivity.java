@@ -3,8 +3,10 @@ package com.example.sharebikes.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -58,8 +60,10 @@ public class SearchActivity extends BaseActivity implements Inputtips.InputtipsL
         inputTips.setInputtipsListener(this);
 
         try {
+            Log.d("SearchActivity", "创建成功");
             mAMapNavi = AMapNavi.getInstance(this);
         } catch (AMapException e) {
+            Log.e("SearchActivity", "创建失败", e);
             throw new RuntimeException(e);
         }
         //设置内置语音播报
@@ -78,7 +82,7 @@ public class SearchActivity extends BaseActivity implements Inputtips.InputtipsL
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        InputtipsQuery inputquery = new InputtipsQuery(String.valueOf(s), "028");
+        InputtipsQuery inputquery = new InputtipsQuery(String.valueOf(s), "0512");
         inputquery.setCityLimit(true);//限制在当前城市
         inputTips.setQuery(inputquery);
         inputTips.requestInputtipsAsyn();
@@ -92,10 +96,10 @@ public class SearchActivity extends BaseActivity implements Inputtips.InputtipsL
 
     @Override
     public void onItemClick(RecyclerView parent, View view, int position, Tip data) {
+        Toast.makeText(this, data.getName(), Toast.LENGTH_SHORT).show();
         LatLonPoint point = data.getPoint();
         Poi poi = new Poi(data.getName(), new LatLng(point.getLatitude(), point.getLongitude()), data.getPoiID());
-        AmapNaviParams params = new AmapNaviParams(null, null, poi, AmapNaviType.DRIVER,
-                AmapPageType.ROUTE);
+        AmapNaviParams params = new AmapNaviParams(null, null, poi, AmapNaviType.RIDE, AmapPageType.ROUTE);
         AmapNaviPage.getInstance().showRouteActivity(getApplicationContext(), params, null);
     }
 
