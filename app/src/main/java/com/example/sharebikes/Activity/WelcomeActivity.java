@@ -23,12 +23,6 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         startMainActivity();
-        // 创建数据库
-        Log.d("DatabaseHelper", "开始调用语句");
-        DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        dbHelper.getWritableDatabase();
-        Log.d("DatabaseHelper", "调用语句成功");
-
     }
 
     private void startMainActivity(){

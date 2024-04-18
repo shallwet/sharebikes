@@ -5,33 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <RelativeLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_station_back"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/im_back"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue"
+        app:navigationIcon="@drawable/icon_back_arrow" >
+        <TextView
+            android:id="@+id/station_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/icon_back_arrow"
-            android:padding="16dp"
-            android:contentDescription="@string/back" />
-
-        <EditText
-            android:id="@+id/edit_query"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/im_back"
-            android:layout_centerVertical="true" />
-
-    </RelativeLayout>
-
+            android:text="租赁点信息"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/stationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

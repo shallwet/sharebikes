@@ -1,16 +1,17 @@
 package com.example.sharebikes.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -42,6 +43,7 @@ public class SearchActivity extends BaseActivity implements Inputtips.InputtipsL
     private RecyclerView recyclerView;
     private RvAdapter rvAdapter;
     private AMapNavi mAMapNavi;
+    private ImageView back;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +60,15 @@ public class SearchActivity extends BaseActivity implements Inputtips.InputtipsL
 
         inputTips = new Inputtips(this, (InputtipsQuery) null);
         inputTips.setInputtipsListener(this);
-
+        back = findViewById(R.id.im_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         try {
             Log.d("SearchActivity", "创建成功");
             mAMapNavi = AMapNavi.getInstance(this);

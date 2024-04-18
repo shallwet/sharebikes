@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 这个权限用于读取手机当前的状态 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.Manifest.permission.CAMERA" />
 
     <application
         android:name=".DemoApplication"
@@ -26,44 +27,50 @@
         android:theme="@style/Theme.Sharebikes"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.SearchActivity"
+            android:name=".Activity.StationActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.UserActivity"
+            android:name=".Activity.QRCodeScanActivity"
             android:exported="false" />
-
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="30b8c048237380e6fbbba2da128f622f"></meta-data>
-
-        <service android:name="com.amap.api.location.APSService" /> <!-- 添加ContentProvider信息 -->
-        <provider
-            android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="com.example.sharebikes.BmobContentProvider"
-            android:exported="false"></provider>
-
         <activity
-            android:name=".Activity.MainActivity"
-            android:exported="true"> <!-- 设置 MainActivity 为主页面 -->
+            android:name=".Activity.WelcomeActivity"
+            android:exported="true"> <!-- 设置 WelcomeActivity 为主页面 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 将 WelcomeActivity 中的 intent-filter 删除 -->
+        </activity>
         <activity
-            android:name=".Activity.RegisterActivity"
+            android:name=".Activity.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.WelcomeActivity"
+            android:name=".Activity.UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.LoginActivity"
             android:exported="false" />
         <activity
             android:name="com.amap.api.navi.AmapRouteActivity"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize|navigation" />
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:theme="@android:style/Theme.NoTitleBar" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="30b8c048237380e6fbbba2da128f622f" />
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="com.example.sharebikes.BmobContentProvider"
+            android:exported="false" />
     </application>
 
 </manifest>

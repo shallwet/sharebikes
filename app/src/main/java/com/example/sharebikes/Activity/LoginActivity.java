@@ -2,13 +2,22 @@ package com.example.sharebikes.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sharebikes.BmobDatabase.User;
 import com.example.sharebikes.R;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 public class LoginActivity extends BaseActivity {
     private EditText etPhone, etPsw;
@@ -27,8 +36,6 @@ public class LoginActivity extends BaseActivity {
         btnLogin = findViewById(R.id.btn_login);
         tvRegister = findViewById(R.id.tv_register);
         tvFindPsw = findViewById(R.id.tv_find_psw);
-
-        dbHelper = new DatabaseHelper(this);
 
         // 登录按钮监听器
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -70,17 +77,7 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(LoginActivity.this, "密码格式不正确", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        if (dbHelper.checkLogin(phone, password)) {
-            // 登录成功
-            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            // 登录失败
-            Toast.makeText(LoginActivity.this, "手机号或密码错误", Toast.LENGTH_SHORT).show();
-        }
+        checkLogin(phone, password);
     }
 
     private boolean isValidPhoneNumber(String phoneNumber) {
@@ -93,7 +90,34 @@ public class LoginActivity extends BaseActivity {
         return password.matches("^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$");
     }
 
-
-
-
+    public void checkLogin(String phone, String password) {
+        BmobQuery<User> userBmobQuery = new BmobQuery<>();
+        userBmobQuery.addWhereEqualTo("phonenumber", phone);
+        userBmobQuery.addWhereEqualTo("password", password);
+        userBmobQuery.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> object, BmobException e) {
+                if (e == null) {
+                    Log.d("BMOB", "查询成功"+object.size());
+                    if (!object.isEmpty()) { // 确保至少有一个对象
+                        User user1 = object.get(0); // 获取第一个对象
+                        String objectId = user1.getObjectId(); // 获取objectId
+                        Log.d("BMOB", "objectId: " + objectId);
+                        // 此处可以继续使用objectId进行其他操作
+                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("objectId", objectId); // 使用putExtra方法传递数据
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Log.d("BMOB", "查询成功，但无数据");
+                        Toast.makeText(LoginActivity.this, "登录失败无数据", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.e("BMOB", e.toString());
+                    Toast.makeText(LoginActivity.this, "登录失败,不存在该用户", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }

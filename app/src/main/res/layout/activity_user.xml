@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -213,5 +214,15 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/colorPageBg" />
         </LinearLayout>
+        <!-- 添加返回按钮 -->
+        <Button
+            android:id="@+id/btn_back_to_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="返回主界面"
+            android:layout_margin="20dp"
+            android:background="@color/colorTheme"
+            android:textColor="@android:color/white"
+            android:layout_gravity="bottom"/>
     </LinearLayout>
 </RelativeLayout>

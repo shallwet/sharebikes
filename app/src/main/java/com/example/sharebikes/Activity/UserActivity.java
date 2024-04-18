@@ -47,13 +47,17 @@ public class UserActivity extends BaseActivity {
     private TextView tvUsername, tvPhoneNumber, tvSex, tvBalance;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private ImageView ivSex, ivBalance, ivPhone, ivUsername;
+    private Button backToMainButton;
     User user;
-    String objectId = "54c474760c";
+    String objectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+        // 获取objectId
+        Intent intent = getIntent();
+        objectId = intent.getStringExtra("objectId");
         ivAvatar = findViewById(R.id.iv_avatar);
         tvUsername = findViewById(R.id.tv_username);
         tvPhoneNumber = findViewById(R.id.tv_phone);
@@ -84,7 +88,18 @@ public class UserActivity extends BaseActivity {
 
         setupListeners();
         loadUserData();
-        // 设置更新操作
+        // 设置返回操作
+        backToMainButton = findViewById(R.id.btn_back_to_main);
+        backToMainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  // 清除之前的Activity栈
+                intent.putExtra("objectId", objectId); // 使用putExtra方法传递数据
+                startActivity(intent);
+            }
+        });
+
     }
     private void loadUserData() {
         BmobQuery<User> bmobQuery = new BmobQuery<>();

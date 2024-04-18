@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:background="#1391F8"
+    android:layout_height="140dp"
+    android:background="@color/white"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
     <!--头像-->
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_avatar"
+        android:id="@+id/iv_station_avatar"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
@@ -16,31 +16,36 @@
         android:layout_marginBottom="30dp"
         android:padding="1dp"
         android:layout_marginEnd="24dp"
-        android:src="@drawable/icon_default_avatar"
+        android:src="@drawable/pk_station"
         app:shapeAppearanceOverlay="@style/circleImageStyle"
         app:strokeColor="#FFF"
         app:strokeWidth="2dp" />
     <!--名称-->
     <TextView
         android:layout_marginTop="16dp"
-        android:layout_alignTop="@+id/iv_avatar"
-        android:id="@+id/tv_name"
+        android:layout_alignTop="@+id/iv_station_avatar"
+        android:id="@+id/tv_station_name"
         android:textSize="16sp"
-        android:textColor="#FFF"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/iv_avatar"
-        android:text="柑橘单车用户" />
-    <!--标签-->
+        android:layout_toEndOf="@+id/iv_station_avatar" />
+    <!--手机号-->
     <TextView
         android:layout_marginTop="8dp"
-        android:id="@+id/tv_tip"
-        android:textSize="14sp"
-        android:layout_below="@+id/tv_name"
-        android:textColor="#FFF"
+        android:id="@+id/tv_station_phone"
+        android:textSize="20sp"
+        android:layout_below="@+id/tv_station_name"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/iv_avatar"
-        android:text="0.0" />
+        android:layout_toEndOf="@+id/iv_station_avatar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/iv_station_avatar"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray" /> <!-- 分割线颜色 -->
 
 </RelativeLayout>

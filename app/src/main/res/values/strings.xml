@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Sharebikes</string>
+    <string name="app_name">柑橘单车</string>
     <string name="scan">扫码</string>
     <string name="avatar">头像</string>
-
+    <string name="back">返回</string>
+    <string name="tips_scan_qr_code">将二维码放入框内，即可自动扫描</string>
 </resources>
